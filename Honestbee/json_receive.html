@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<!--<p>移動到文字上顯示文字</p>-->
+<!--<h1 id="myHeader" onmouseover="getValue()">This is a header</h1>-->
+<!--<p>Click on the header to alert its value</p>-->
+
+<!--<p>顯示</p>-->
+<h2>Convert a string written in JSON format, into a JavaScript object.</h2>
+
+<p>品牌列表：</p>
+<div id="shop"><span>[</span></div>
+<p>品牌之分類數量：</p>
+<div id="length"><span>[</span></div>
+<p>分類列表：</p>
+<div id="product"><span>[</span></div>
+
+
+<!--<p>按一下按鈕上顯示 ID </p>-->
+<!--<input type="button" id="myButton" name="mybutton" value="送出" onclick="myMsg(this)">-->
+
+<script>
+
+    //    var honestbeeJSON = '{ "id":11712,"name":"裕毛屋生鮮超市","departments":[{"id":32524,"name":"食物櫃","description":null,"imageUrl":null},{"id":32532,"name":"新鮮水果","description":null,"imageUrl":null},{"id":32531,"name":"新鮮蔬菜","description":null,"imageUrl":null},{"id":32525,"name":"冷凍食品","description":null,"imageUrl":null},{"id":32528,"name":"保健美容產品","description":null,"imageUrl":null},{"id":32530,"name":"家庭用品","description":null,"imageUrl":null},{"id":32527,"name":"居家清潔用品","description":null,"imageUrl":null},{"id":32529,"name":"熟食","description":null,"imageUrl":null},{"id":32526,"name":"零食和糖果","description":null,"imageUrl":null}] }';
+    //    var myObj = JSON.parse(honestbeeJSON);
+    //    document.getElementById("demo").innerHTML = '品牌名稱: ' + myObj.name + ',品牌 ID: ' + myObj.id
+    //    document.getElementById("product").innerHTML = '總共有 ' + myObj['departments'].length + ' 個分類: ';
+    var shoplist = document.getElementById("shop");
+//    var lengthlist = document.getElementById("length");
+//    var productlist = document.getElementById("product");
+    var requestURL = 'https://core.honestbee.com/api/brands?countryCode=TW&page=1&page_size=48&serviceType=groceries';
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function () {
+        var honestbee = request.response;
+        for (var i = 0; i < honestbee.length; i++) {
+            var myPara = document.createElement('span');
+            if (i == (honestbee.length - 1)) {
+                myPara.textContent = honestbee[i].name + ']';
+            }
+            else {
+                myPara.textContent = honestbee[i].name + ',';
+            }
+            shoplist.appendChild(myPara);
+        }
+//        for (var i = 0; i < honestbee.length; i++) {
+//            var myPara = document.createElement('span');
+//            if (i == (honestbee.length - 1)) {
+//                myPara.textContent = honestbee[i]['departments'].length + ']';
+//            }
+//            else {
+//                myPara.textContent = honestbee[i]['departments'].length + ',';
+//            }
+//            lengthlist.appendChild(myPara);
+//        }
+//        for (var i = 0; i < honestbee.length; i++) {
+//            var myPara = document.createElement('span');
+//            for (var j = 0; j < honestbee[i]['departments'].length; j++) {
+//
+//                    myPara.textContent = honestbee[i]['departments'][j]['id'] + ',';
+//
+//            }
+//            productlist.appendChild(myPara);
+//        }
+    };
+
+
+    //    ============================================================================================
+    //    for (var i = 0; i < myObj['departments'].length; i++) {
+    //        var myPara = document.createElement('p');
+    //        myPara.textContent = '分類名稱: ' + myObj['departments'][i].name + ',分類 ID: ' + myObj['departments'][i].id;
+    //        product.appendChild(myPara);
+    //    }
+    //    ============================================================================================
+
+    //    function myMsg(myObj){
+    //
+    //        alert("id 為: " + myObj.id);
+    //    }
+
+    //    function getValue()
+    //    {
+    //        var x=document.getElementById("myHeader")
+    //        alert(x.innerHTML)
+    //    }
+</script>
+
+</body>
+</html>

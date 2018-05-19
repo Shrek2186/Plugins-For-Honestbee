@@ -1,0 +1,48 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+
+    #endofpage {
+        right: 10px;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+
+    #endofpage {
+        right: 100px;
+    }
+}
+
+
+.endofpagehead {
+    margin: 0;
+    position: relative;
+}
+
+#closeendofpage {
+    position: absolute;
+    right: 18px;
+    font-size: 20px;
+    /*color: #E84673;*/
+}
+
+#endofpage {
+    margin: 0px;
+    height: 150px;
+    width: 300px;
+    position: fixed;
+    bottom: -150px;
+    opacity: 0;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    -moz-box-shadow: 0 0 25px #666666;
+    -webkit-box-shadow: 0 0 25px #666666;
+    box-shadow: 0 0 25px #666666;
+    z-index: 5;
+}
+

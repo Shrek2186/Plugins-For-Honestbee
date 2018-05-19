@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>品牌列表：</p>
+<div id="shop" class="b4"><span id="StringFont">jeijojfwoi</span></div>
+<p>品牌之分類數量：</p>
+<div id="length"><span>[</span></div>
+<p>分類列表：</p>
+<div id="product"><span>[</span></div>
+</body>
+<script>
+
+    function getText(){
+        return document.getElementById("StringFont").innerHTML
+    }
+    function getHTML(){
+        return document.body.outerHTML
+    }
+    console.log(getText());             //Gives you all the text on the page
+    console.log(getHTML());
+</script>
+</html>
