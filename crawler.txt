@@ -1,0 +1,46 @@
+import requests
+import re
+import numpy as np
+import mysql.connector
+config={'host':'127.0.0.1',
+       'user':'root',
+       'password':'',
+       'port':3306,
+       'database':'honestbee',
+       'charset':'utf8'}
+try: 
+    cnn=mysql.connector.connect(**config)
+except mysql.connector.Error as e:
+    print('connect fails!{}'.format(e))
+cursor = cnn.cursor()
+from bs4 import BeautifulSoup
+web1 = "https://www.honestbee.tw/zh-TW/groceries/stores/"
+webx = np.array(["yumaowu","arnold-palmer","playboy","fun-zongzi","yonglin-organic-farm","laoshen-zaizai","fresh-to-door-byhonestbee","furday","cotton-field-organic","fresh-by-honestbee-tw","tsukijifreshseafood","sun-flower","american-wholesaler","carrefour","yaosyuanseafood","ikl-food-market","organic-green-juicy","wu-pao-chun-concierge","jinbo-selection","simple-mart","mayfull","lafe","tanhou","thomas-meat","tsotsoaqua","american-wholesaler-diaper-clearance","olive-green-life","green-safe","freshly-deliver","new-taipei-agro","nescafe-dolce-gusto","boulder-clean","sori-yanagi","cyber-buy-japan-goods-select-shop","the-health-beauty-centre","no-1-food-theater-market","wonderful-select","matthews-choice","lecoindupain","puredise","mr-good","mombabee","pekoe-grocery-store","we-good-good","hsin-tung-yang","green-in-hand","greenvines","nice-green"])
+c = 0
+while c < 48:
+    webt = web1 + webx[c]
+    res = requests.get(webt)
+    soup = BeautifulSoup(res.text)
+    for item in soup.select('._SvKXteR-KEhPC9z6PkxL'):
+        i = item.select('._2UCShViKs8ydkfj-XuvUhM')[0].text
+        p = item.select('._23g1UkP8VGFqvGuLjUsc-H')[0].text
+        g = item.select('._3MvGCVMGqgv4KoGQ2wGzfk')[0].text
+        pic1 = item.select('img')[0]
+        pic = pic1['src']
+        p0 = filter(lambda ch: ch in '0123456789.', p)
+        p1 = int(p0)
+        g1 = re.sub('\s','',g)
+        shop = str(webx[c])
+        try:
+            sql_insert="insert into bee_product (shop_name , product_name, product_price, product_num , product_img) values (%s,%s,%s,%s,%s)"
+            data = (shop,i,p1,g1,pic)
+            cursor.execute(sql_insert,data)
+        except mysql.connector.Error as e:
+            print('insert datas error!{}'.format(e))
+#         print (shop + " "+ i +"  "+ str(p1) +"  "+ g1 +"  "+ pic)
+#         print ('\n')
+    c = c + 1
+
+cnn.commit()
+cursor.close()
+cnn.close()
