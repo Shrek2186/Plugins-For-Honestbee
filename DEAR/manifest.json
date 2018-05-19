@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+
+  "name": "購物",
+  "description": "購物",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "notifications"
+
+  ],
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*", "file:///*" ],
+      "js": [
+        "hovercard.js"
+      
+
+      ],
+      
+      
+      "commands": {
+        "_execute_browser_action": {
+          "suggested_key": {
+            "default": "Ctrl+Space+A"
+          }
+        }
+      },
+      "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+      }
+
+
+
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <style type='text/css'>
+        #endofpage {
+            font-size: 16px;
+            background-color: #fffacd;
+            width: 220px;
+            padding: 15px 15px;
+            right: 45px;
+            bottom: -220px;
+            position: fixed;
+            z-index: 2;
+            -moz-box-shadow: -2px 3px 25px #a9a9a9;
+            -webkit-box-shadow: -2px 3px 25px #a9a9a9;
+            box-shadow: -2px 3px 25px #a9a9a9;
+        }
+
+        #up {
+            right: 45px;
+            bottom: -24px;
+            position: fixed;
+        }
+
+        #endofpagehead {
+            right: 50px;
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="endofpage" runat="server">
+            <div id="endofpagehead" runat="server">
+                <input type="button" id="closeendofpage" style="background-image:url(/picture/down.png);background-color:transparent;background-size:cover;height:24px;width:24px"/>
+            </div>
+            <div style="height:30px"></div>
+            讓 honestbee 為你帶來更優惠的價格。
+        </div>
+        <input type="button" id="up" style="background-image:url(/picture/up.png);background-color:transparent;background-size:cover;height:24px;width:24px"/>
+        <script type="text/javascript">
+            $("#endofpage").mouseover(function () {
+                $(this).css('cursor', 'pointer');
+            });
+            
+            $(document).ready(
+                function () {
+                    
+                });
+            $("#endofpage").animate({
+                bottom: '0px',
+                opacity: '1'
+            }, 5000);
+            $("#closeendofpage").click(function () {
+                $("#up").animate({
+                    bottom: '0px',
+                    opacity: '1'
+                }, 100);
+                $("#endofpage").fadeOut('slow');
+                //return false; // to stop postback
+            });
+            $("#up").click(function () {
+                $("#endofpage").fadeIn('slow');
+                //return false; // to stop postback
+            });
+        </script>
+    </form>
+</body>
+</html>
